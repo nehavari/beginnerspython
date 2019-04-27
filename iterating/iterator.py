@@ -1,5 +1,17 @@
-from collections.abc import Iterable, Iterator
+class NodeIterator(object):
 
+    def __init__(self, node):
+        self._node = node
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self._node:
+            raise StopIteration()
+        currentNode = self._node
+        self._node = self._node.getNextNode()
+        return currentNode
 
 class Node(object):
 
@@ -7,30 +19,47 @@ class Node(object):
         self._value = value
         self._next = next
 
-    def __next__(self):
-        if self._next:
-            return self._next
+    def getValue(self):
+        return self._value
 
-        raise StopIteration()
+    def getNextNode(self):
+        return self._next
 
-    def append(self, node):
+    def setNextNode(self, node):
         self._next = node
-        return node
+
+    def __iter__(self):
+        return NodeIterator(self)
 
     def __str__(self):
         return str(self._value)
 
+
+class SinglyLinkedList(object):
+
+    def __init__(self, node):
+        self.head = node
+
+    def append(self, node):
+        lastNode = None
+
+        for h in self.head:
+            lastNode = h
+        lastNode.setNextNode(node)
+
+    def __str__(self):
+        return str(self.head.getValue())
+
     def __iter__(self):
-        return self
+        return NodeIterator(self.head)
 
 
-list1 = Node(1)
-list1.append(Node(2)).append(Node(3))
+def main():
+    list1 = SinglyLinkedList(Node(1))
+    list1.append(Node(2))
+    list1.append(Node(3))
+    for l in list1:
+        print(l)
 
-for l in list1:
-    print(l)
-
-print(list1)
-print(next(list1))
-print(next(next(list1)))
-print(next(next(next(list1))))
+if __name__ == '__main__':
+    main()
