@@ -68,8 +68,9 @@ def main():
     ]
     timingsList = sorted(timingsList, key=duration)
     print(timingsList)
+    bookedRequests.append(timingsList[0])
 
-    for timings in timingsList:
+    for timings in timingsList[1:]:
         eligible = True
         if bookedRequests:
             for tb in bookedRequests:
@@ -79,9 +80,6 @@ def main():
                         break
             if eligible:
                 bookedRequests.append(timings)
-
-        if not bookedRequests:
-            bookedRequests.append(timings)
 
     print(len(bookedRequests) * 500)
 
