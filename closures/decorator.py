@@ -14,3 +14,9 @@ def onexit(f):
 def func():
     print('This function will be executed at exit of program')
 
+
+from closures.singletondecorator import MyClass
+
+
+def myfunc():
+    return MyClass()

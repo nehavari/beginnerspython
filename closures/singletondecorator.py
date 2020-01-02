@@ -30,5 +30,8 @@ def main():
     c1 = MyClass()
     c3 = MyClass  # this doest not execute the closure
     print(id(c), id(c1))
+    from closures.decorator import myfunc
+    c4 = myfunc()  # coming from a different module but as in same interpreter session so not  
+    print(id(c4))
 
 main()
