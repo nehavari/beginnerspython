@@ -6,14 +6,15 @@ __name__ was made writable in Python 2.4a3
 
 import functools
 
+
 def accepts(*types):
     print("* Inside accepts *")
 
     def _decorator(f):
         print("** Inside check_accepts **")
         # assert len(types) == f.__code__.co_argcount
-        functools.wraps(f)  # automatic name
 
+        @functools.wraps(f)  # automatic name
         def _wrapper(*args, **kwds):  # This is the wrapper on decorated function "func"
             print("*** Inside accepts _wrapper ***")
             for (a, t) in zip(args, types):
