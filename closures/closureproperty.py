@@ -9,8 +9,8 @@ def foo(x):
         q = 777
 
         def baz(z):
-            print(locals())  # {'y': 20, 'x': 10, 'z': 30, 'q': 10}
-            print(vars())  # {'y': 20, 'x': 10, 'z': 30, 'q': 10}
+            print(locals())  # {'z': 30, 'q': 777, 'x': 100, 'y': 20}
+            print(vars())  # {'z': 30, 'q': 777, 'x': 100, 'y': 20}
             return x + y + q + z
         return baz
     return bar
@@ -26,7 +26,7 @@ bar = foo(100)
 
 # Closure cells of "bar":
 # (
-#     <cell at 0x0000013138B7DDC8: int object at 0x00007FFEA8ACD540>, "x": 10
+#     <cell at 0x0000013138B7DDC8: int object at 0x00007FFEA8ACD540>, "x": 100
 # )
 print('bar\'s closure', bar.__closure__)
 
@@ -51,7 +51,7 @@ print(baz.__closure__[0])  # <cell at 0x0000019FE05FEF18: int object at 0x00007F
 print('index 0', baz.__closure__[0].cell_contents)  # 777 -- this is our closured "q"
 
 # the same for "x" and "y"
-print('index 1', baz.__closure__[1].cell_contents)  # "x": 10
+print('index 1', baz.__closure__[1].cell_contents)  # "x": 100
 print('index 2', baz.__closure__[2].cell_contents)  # "y": 20
 
 # Then, when "baz" is activated it's own environment
